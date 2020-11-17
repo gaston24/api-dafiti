@@ -17,6 +17,10 @@ foreach ($listPedidosExistentes as $key => $value) {
 
 use \DateTime as DT;
 
+/* ESTADO DEL DESARROLLO */
+/* 0 = DEBBUGEA */
+/* 1 = EJECUTA */
+$estado = 0;
 
 
 // ENCABEZADO
@@ -35,9 +39,12 @@ foreach ($list as $key => $value) {
                 $cantArt = $value['ItemsCount'];
                 $price = $value['Price'];
 
-                // echo $orderId.' '.$orderNumber.' '.date('Y-m-d H:i:s', $fechaCreate).' '.$cantArt.' '.$price.'<br>';
+                if($estado == 0 ){
+                    echo $orderId.' '.$orderNumber.' '.date('Y-m-d H:i:s', $fechaCreate).' '.$cantArt.' '.$price.'<br>';
+                }elseif($estado == 1){
+                    $pedidos->insertarEncabezado($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $cantArt, $price);
+                }
 
-                $pedidos->insertarEncabezado($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $cantArt, $price);
                 
 
                 // CLIENTE
@@ -52,14 +59,13 @@ foreach ($list as $key => $value) {
                 $cPostal = $value['AddressBilling']['PostCode'];
                 $eMail = $value['AddressBilling']['CustomerEmail'];
                 $dni = $value['NationalRegistrationNumber'];
-
-                // echo $firstName.' '.$lastName.' '.$telefono1.' '.$telefono2.' '.$direccion1.' '.$direccion2.' '.$ciudad.' '.$cPostal
-                // .' '.$eMail.' '.$dni.'<br>';
-                
-
-                $pedidos->insertarCliente($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $firstName, $lastName, $telefono1, $telefono2, $direccion1, $direccion2, $ciudad, $cPostal, $eMail, $dni);
-
-                // echo '<hr>';
+                if($estado == 0 ){
+                    echo $firstName.' '.$lastName.' '.$telefono1.' '.$telefono2.' '.$direccion1.' '.$direccion2.' '.$ciudad.' '.$cPostal
+                    .' '.$eMail.' '.$dni.'<br>';
+                    echo '<hr>';
+                }elseif($estado == 1){
+                    $pedidos->insertarCliente($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $firstName, $lastName, $telefono1, $telefono2, $direccion1, $direccion2, $ciudad, $cPostal, $eMail, $dni);
+                }
             }
         }
     }
@@ -96,8 +102,12 @@ foreach ($orderDetails as $key => $value1) {
                         $fechaCreate = strtotime($value5['CreatedAt']);     
                         $codArticu = $value5['Sku'];
                         $precioArt = $value5['PaidPrice'];
-                        echo $fechaCreate.' '.$codArticu.' '.$precioArt.'<br>';
-                        $pedidos->insertarDetalle($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $nroArt, $codArticu, $precioArt);
+
+                        if($estado==0){
+                            echo $fechaCreate.' '.$codArticu.' '.$precioArt.'<br>';
+                        }elseif ($estado == 1) {
+                            $pedidos->insertarDetalle($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $nroArt, $codArticu, $precioArt);
+                        }
                     }
                 }else{
                     echo 'no esta seteado';

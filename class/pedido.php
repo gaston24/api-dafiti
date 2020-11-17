@@ -4,7 +4,7 @@ class Pedido{
 
     public function traerPedidos(){
         include __DIR__."/../AccesoDatos/conn.php";
-        $sql2 = "
+        $sql = "
         SET DATEFORMAT YMD
 
         SELECT DISTINCT NRO_ORDEN_ECOMMERCE
@@ -13,7 +13,7 @@ class Pedido{
         AND FECHA_PEDIDO >= '2020-11-11'
         ";
 
-        $sql = "
+        $sql2 = "
         SELECT DISTINCT ORDER_NUMBER NRO_ORDEN_ECOMMERCE FROM SJ_DAFITI_API_ENCABEZADO
         ";
 

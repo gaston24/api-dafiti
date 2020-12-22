@@ -3,6 +3,7 @@
 include __DIR__."/get/orders.php";
 include __DIR__."/class/pedido.php";
 
+
 $orders = new Order();
 $list = $orders->getOrders();
 $row = 1;
@@ -40,7 +41,7 @@ foreach ($list as $key => $value) {
                 $price = $value['Price'];
 
                 if($estado == 0 ){
-                    echo $orderId.' '.$orderNumber.' '.date('Y-m-d H:i:s', $fechaCreate).' '.$cantArt.' '.$price.'<br>';
+                    // echo $orderId.' '.$orderNumber.' '.date('Y-m-d H:i:s', $fechaCreate).' '.$cantArt.' '.$price.'<br>';
                 }elseif($estado == 1){
                     $pedidos->insertarEncabezado($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $cantArt, $price);
                 }
@@ -60,8 +61,8 @@ foreach ($list as $key => $value) {
                 $eMail = $value['AddressBilling']['CustomerEmail'];
                 $dni = $value['NationalRegistrationNumber'];
                 if($estado == 0 ){
-                    echo $firstName.' '.$lastName.' '.$telefono1.' '.$telefono2.' '.$direccion1.' '.$direccion2.' '.$ciudad.' '.$cPostal
-                    .' '.$eMail.' '.$dni.'<br>';
+                    // echo $firstName.' '.$lastName.' '.$telefono1.' '.$telefono2.' '.$direccion1.' '.$direccion2.' '.$ciudad.' '.$cPostal
+                    // .' '.$eMail.' '.$dni.'<br>';
                     echo '<hr>';
                 }elseif($estado == 1){
                     $pedidos->insertarCliente($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $firstName, $lastName, $telefono1, $telefono2, $direccion1, $direccion2, $ciudad, $cPostal, $eMail, $dni);
@@ -85,59 +86,133 @@ echo '<hr>';
 
 
 foreach ($orderDetails as $key => $value1) {
+
     foreach($value1['Body'] as $body => $value2){
 
-
         if(isset($value2['Order'])){
-            echo 'entre 1';
+            // echo 'entre 1';
             foreach($value2 as $body => $value3['Order']){
 
+                // echo 'foreach';
+
                 // var_dump($value3['Order']);
-    
-                $orderId = $value3['Order']['OrderId'];
-                $orderNumber = $value3['Order']['OrderNumber'];
-                
-                $nroArt= 1;
-                
-                foreach ($value3['Order']['OrderItems'] as $key => $value4) {
-    
-                    // echo 'entre';
-    
-                    if(isset($value4['Sku'])){
-    
-                        $fechaCreate = strtotime($value4['CreatedAt']);
-                        
-                        $codArticu = $value4['Sku'];
-                        $precioArt = $value4['PaidPrice'];
-    
-                        
-                        if($estado==0){
-                            echo $fechaCreate.' '.$codArticu.' '.$precioArt.'<br>';
-                        }elseif ($estado == 1) {
-                            $pedidos->insertarDetalle($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $nroArt, $codArticu, $precioArt);
-                        }
+                // return;
 
+                if(isset($value3['Order']['OrderId'])){
 
-                    }else{
-                        foreach ($value4 as $key2 ) {
-                            if (is_array($key2)){
-            
-                                $fechaCreate = strtotime($key2['CreatedAt']);     
-                                $codArticu = $key2['Sku'];
-                                $precioArt = $key2['PaidPrice'];
+                    echo 'esta seteado';
+
+                    $orderId = $value3['Order']['OrderId'];
     
-                                if($estado==0){
-                                    echo $fechaCreate.' '.$codArticu.' '.$precioArt.'<br>';
-                                }elseif ($estado == 1) {
-                                    $pedidos->insertarDetalle($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $nroArt, $codArticu, $precioArt);
+                    $orderNumber = $value3['Order']['OrderNumber'];
+                    
+                    $nroArt= 1;
+
+                    foreach ($value3['Order']['OrderItems'] as $key => $value4) {
+    
+                        echo 'entre raro';
+        
+                        if(isset($value4['Sku'])){
+    
+                            echo 'if si';
+                            
+                            $fechaCreate = strtotime($value4['CreatedAt']);
+                            
+                            $codArticu = $value4['Sku'];
+                            $precioArt = $value4['PaidPrice'];
+                            
+                            
+                            if($estado==0){
+                                echo $fechaCreate.' '.$codArticu.' '.$precioArt.'<br>';
+                            }elseif ($estado == 1) {
+                                $pedidos->insertarDetalle($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $nroArt, $codArticu, $precioArt);
+                            }
+                            
+                            
+                        }else{
+                            echo 'if no';
+                            foreach ($value4 as $key2 ) {
+                                if (is_array($key2)){
+                
+                                    $fechaCreate = strtotime($key2['CreatedAt']);     
+                                    $codArticu = $key2['Sku'];
+                                    $precioArt = $key2['PaidPrice'];
+        
+                                    if($estado==0){
+                                        echo $fechaCreate.' '.$codArticu.' '.$precioArt.'<br>';
+                                    }elseif ($estado == 1) {
+                                        $pedidos->insertarDetalle($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $nroArt, $codArticu, $precioArt);
+                                    }
+    
+                                    $nroArt++;
                                 }
-
-                                $nroArt++;
                             }
                         }
+        
                     }
-    
+
+                }else{
+
+                    foreach($value2 as $key => $value3){
+            
+                        $nroArt= 1;
+                        
+                        foreach ($value3 as $key => $value4) {
+                            
+                            $orderId = $value4['OrderId'];
+                            $orderNumber = $value4['OrderNumber'];
+            
+                            echo $orderId.' '.$orderNumber.'<br>';
+            
+                            if (isset($value4['OrderItems'])){
+                                foreach ($value4['OrderItems'] as $key => $value5) {
+                                    
+                                    if(isset($value5['CreatedAt'])){
+
+                                        $fechaCreate = strtotime($value5['CreatedAt']);     
+                                        $codArticu = $value5['Sku'];
+                                        $precioArt = $value5['PaidPrice'];
+                
+                                        if($estado==0){
+                                            echo $fechaCreate.' '.$codArticu.' '.$precioArt.'<br>';
+                                        }elseif ($estado == 1) {
+                                            $pedidos->insertarDetalle($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $nroArt, $codArticu, $precioArt);
+                                        }
+
+                                    }else{
+                                        foreach($value5 as $key){
+                                            // print_r($key);
+                                            $fechaCreate = strtotime($key['CreatedAt']);     
+                                            $codArticu = $key['Sku'];
+                                            $precioArt = $key['PaidPrice'];
+
+                                            if($estado==0){
+                                                echo $fechaCreate.' '.$codArticu.' '.$precioArt.'<br>';
+                                            }elseif ($estado == 1) {
+                                                $pedidos->insertarDetalle($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $nroArt, $codArticu, $precioArt);
+                                            }
+                                        }
+                                    }
+
+                                    
+                                }
+                            }else{
+                                echo 'no esta seteado';
+                            }
+            
+                            $nroArt++;
+                            
+                            
+                            echo '<hr><hr>';
+            
+                        }
+            
+                    }
+
                 }
+    
+                
+
     
             }
         }else{
@@ -183,8 +258,3 @@ foreach ($orderDetails as $key => $value1) {
         
     }
 }
-
-
-
-
-

@@ -27,7 +27,7 @@ class Novedad
     public function stockDelete(){
         include __DIR__."/../AccesoDatos/conn.php";
         $sql = "
-        delete top (50) from SJ_DAFITI_NOVEDAD_SALDO__STOCK
+        EXEC SP_SJ_DAFITI_NOVEDAD_SALDO__STOCK
         ";
         $stmt = sqlsrv_query( $cid_central, $sql );
 
@@ -56,7 +56,7 @@ class Novedad
     public function preciosDelete(){
         include __DIR__."/../AccesoDatos/conn.php";
         $sql = "
-        delete top (50) from SJ_DAFITI_NOVEDAD_PRECIO_VENTA
+        EXEC SP_SJ_DAFITI_NOVEDAD_PRECIO_VENTA
         ";
         $stmt = sqlsrv_query( $cid_central, $sql );
 

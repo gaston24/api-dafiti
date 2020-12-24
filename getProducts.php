@@ -4,8 +4,11 @@
 
 include __DIR__."/get/products.php";
 
+$sku = $_GET['sku'];
+
+
 $products = new Product();
-$list = $products->getProducts('XV0SST%', '500');
+$list = $products->getProducts($sku.'%', '500');
 $row = 1;
 
 ?>

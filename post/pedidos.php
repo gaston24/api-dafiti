@@ -43,6 +43,8 @@ function new_daf_api(){
 		$direccion = $v['DIRECCION_1'].' '.$v['DIRECCION_2'].' '.$v['CIUDAD'];
 		$direccion = substr($direccion, 0, 30);
 		$direccion = str_replace("'","''", $direccion);
+		$direccion = str_replace("<","", $direccion);
+		$direccion = str_replace(">","", $direccion);
 
 		$localidad = $v['CIUDAD'];
 		$localidad = substr($localidad, 0, 20);

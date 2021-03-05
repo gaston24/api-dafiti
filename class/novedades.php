@@ -8,10 +8,10 @@ class Novedad
     public function stock(){
         include __DIR__."/../AccesoDatos/conn.php";
         $sql = "
-        SELECT TOP 50 A.COD_ARTICU, CAST(B.CANT_STOCK AS INT) CANT_STOCK FROM SJ_DAFITI_NOVEDAD_SALDO__STOCK A
-        INNER JOIN STA19 B
+        SELECT TOP 50 A.COD_ARTICU, CAST(B.STOCK_DISPONIBLE AS INT) CANT_STOCK FROM SJ_DAFITI_NOVEDAD_SALDO__STOCK A
+        INNER JOIN SJ_STOCK_DISPONIBLE_ECOMMERCE B
         ON A.COD_ARTICU COLLATE Latin1_General_BIN = B.COD_ARTICU
-        WHERE B.COD_DEPOSI = '12'
+        WHERE B.COD_DEPOSI = '01'
         ";
         $stmt = sqlsrv_query( $cid_central, $sql );
 

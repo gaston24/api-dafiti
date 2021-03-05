@@ -124,7 +124,7 @@ function new_daf_api(){
 			
 			$sqlDetalle = 
 			"
-			EXEC SJ_PEDIDOS_DETALLE_SIMPLE '12', '$codArt', $cantArt, $renglonPedido, 101, '$numPedido', 'GTDAF'  
+			EXEC SJ_PEDIDOS_DETALLE_SIMPLE '01', '$codArt', $cantArt, $renglonPedido, 101, '$numPedido', 'GTDAF'  
 			";
             
             $stmt = sqlsrv_prepare( $cid_central, $sqlDetalle );

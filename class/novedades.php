@@ -64,4 +64,15 @@ class Novedad
         
     }
 
+    public function insertNovedad($codArticu){
+        include __DIR__."/../AccesoDatos/conn.php";
+        $sql = "
+        INSERT INTO SJ_DAFITI_NOVEDAD_SALDO__STOCK (COD_ARTICU, ID_SJ_DAFITI_DEPOSITO_STOCK, CAMBIO)
+        VALUES('$codArticu', 1, 'UPDATE')
+        ";
+        $stmt = sqlsrv_query( $cid_central, $sql );
+
+        sqlsrv_execute($stmt);
+    }
+
 }

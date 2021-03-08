@@ -1,15 +1,18 @@
 <?php
 
-// require_once 'get/products.php';
-
 include __DIR__."/get/products.php";
+include __DIR__."/class/products.php";
 
-$sku = $_GET['sku'];
+// $sku = $_GET['sku'];
 
 
 $products = new Product();
-$list = $products->getProducts($sku.'%', '5000');
+$list = $products->getProducts('X%', '5000');
 $row = 1;
+
+$producto = new Producto();
+$producto->borrarArt();
+
 
 ?>
 
@@ -41,8 +44,8 @@ $row = 1;
 <tbody>
 <?php
 foreach ($list as $key => $value) {
-    foreach($value['Body'] as $body => $value){
-        foreach($value['Product'] as $product => $value){
+    foreach($value['Body'] as $body => $value) {
+        foreach($value['Product'] as $product => $value) {
             echo '<tr>';
             echo '<td>'.$value['SellerSku'].'</td>';
             echo '<td>'.$value['Name'].'</td>';
@@ -53,6 +56,8 @@ foreach ($list as $key => $value) {
             echo '<td>'.$value['Price'].'</td>';
             echo '<td>'.$value['SalePrice'].'</td>';
             echo '</tr>';
+
+            $producto->insertArt($value['SellerSku'], $value['Available'], $value['Price']);
         }
         $row++;
     }

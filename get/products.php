@@ -34,6 +34,7 @@ class Product {
         $queryString = http_build_query($parameters, '', '&', PHP_QUERY_RFC3986);
 
         $ch = curl_init();
+
         curl_setopt($ch, CURLOPT_URL, $url."?".$queryString);
 
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION,1);

@@ -185,15 +185,26 @@ class Product{
 
     function updateStockList($listaPrueba){
 
-        $array = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<Request>\r\n";
+        // echo '<br><br>';
+
+        $array = '<?xml version="1.0" encoding="UTF-8" ?><Request>';
 
         foreach($listaPrueba as $key => $value){
             $sku = $value[0];
             $stock = $value[1];
-            $array .= "<Product>\r\n<SellerSku>$sku</SellerSku>\r\n<Quantity>$stock</Quantity>\r\n</Product>\r\n";
+            $array .= '<Product><SellerSku>'.$sku.'</SellerSku><Quantity>'.$stock.'</Quantity></Product>';
+            echo $sku.' '.$stock.'<br>';
         }
 
-        $array .= "</Request>";
+        $array .= '</Request>';
+
+        // echo $array;
+
+        // echo $array;
+
+        // return;
+
+        // echo $array.'<br><br>ACA ARRIBA<br><br>';
 
         date_default_timezone_set("UTC");
 
@@ -222,6 +233,8 @@ class Product{
 
         $queryString = http_build_query($parameters, '', '&', PHP_QUERY_RFC3986);
 
+        // echo $queryString;
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url."?".$queryString);
 
@@ -244,7 +257,11 @@ class Product{
 
         $response = curl_exec($ch);
 
+        // print_r($ch);
+
         curl_close($ch);
+
+        echo $response;
         return $response;
 
     }

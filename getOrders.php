@@ -41,7 +41,7 @@ foreach ($list as $key => $value) {
                 $price = $value['Price'];
 
                 if($estado == 0 ){
-                    // echo $orderId.' '.$orderNumber.' '.date('Y-m-d H:i:s', $fechaCreate).' '.$cantArt.' '.$price.'<br>';
+                    echo $orderId.' '.$orderNumber.' '.date('Y-m-d H:i:s', $fechaCreate).' '.$cantArt.' '.$price.'<br>';
                 }elseif($estado == 1){
                     $pedidos->insertarEncabezado($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $cantArt, $price);
                 }
@@ -61,8 +61,8 @@ foreach ($list as $key => $value) {
                 $eMail = $value['AddressBilling']['CustomerEmail'];
                 $dni = $value['NationalRegistrationNumber'];
                 if($estado == 0 ){
-                    // echo $firstName.' '.$lastName.' '.$telefono1.' '.$telefono2.' '.$direccion1.' '.$direccion2.' '.$ciudad.' '.$cPostal
-                    // .' '.$eMail.' '.$dni.'<br>';
+                    echo $firstName.' '.$lastName.' '.$telefono1.' '.$telefono2.' '.$direccion1.' '.$direccion2.' '.$ciudad.' '.$cPostal
+                    .' '.$eMail.' '.$dni.'<br>';
                     echo '<hr>';
                 }elseif($estado == 1){
                     $pedidos->insertarCliente($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $firstName, $lastName, $telefono1, $telefono2, $direccion1, $direccion2, $ciudad, $cPostal, $eMail, $dni);

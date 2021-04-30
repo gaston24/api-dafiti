@@ -11,7 +11,7 @@ class Order {
 
         $parameters = array(
         'UserID' => user,
-        'CreatedAfter' => '2020-11-11',
+        'CreatedAfter' => '2021-04-20',
         // 'Limit' => $cant,
         'Version' => '1.0',
         'Action' => 'GetOrders',
@@ -60,7 +60,7 @@ class Order {
 
         $parameters = array(
         'UserID' => user,
-        'CreatedAfter' => '2020-11-01',
+        'CreatedAfter' => '2021-04-20',
         'OrderId' => $order,
         'Version' => '1.0',
         'Action' => 'GetOrderItems',
@@ -109,7 +109,7 @@ class Order {
 
         $parameters = array(
         'UserID' => user,
-        'CreatedAfter' => '2020-11-01',
+        'CreatedAfter' => '2021-04-20',
         'OrderIdList' => $list,
         'Version' => '1.0',
         'Action' => 'GetMultipleOrderItems',

@@ -30,6 +30,7 @@ class Pedido{
 
 
     public function insertarEncabezado($orderId, $orderNumber, $fechaCreate, $cantArt, $price){
+        
         include __DIR__."/../AccesoDatos/conn.php";
         $sql = "
         SET DATEFORMAT YMD

@@ -74,7 +74,7 @@ function new_daf_api(){
         
         $stmt = sqlsrv_query( $cid_central, $sqlNumActual );
         while( $v = sqlsrv_fetch_array( $stmt) ) {
-            $numPedido = ' 00002'.$v['PROXIMO'];
+            $numPedido = ' 00005'.$v['PROXIMO'];
         }
 		
 		

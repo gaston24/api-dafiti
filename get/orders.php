@@ -7,11 +7,15 @@ class Order {
     function getOrders(){
         date_default_timezone_set("UTC");
 
+        // set current date less 15 days (field CreatedAfter)
         $now = new DateTime();
+        $fecha = $now->format(DateTime::ISO8601);
+        // echo date_create($fecha)->modify('-15 days')->format('Y-m-d');
 
         $parameters = array(
         'UserID' => user,
-        'CreatedAfter' => '2021-04-20',
+        // 'CreatedAfter' => '2021-07-10',
+        'CreatedAfter' => date_create($fecha)->modify('-15 days')->format('Y-m-d'),
         // 'Limit' => $cant,
         'Version' => '1.0',
         'Action' => 'GetOrders',
@@ -56,11 +60,15 @@ class Order {
     function getOrderItems($order){
         date_default_timezone_set("UTC");
 
+        // set current date less 15 days (field CreatedAfter)
         $now = new DateTime();
+        $fecha = $now->format(DateTime::ISO8601);
+        // echo date_create($fecha)->modify('-15 days')->format('Y-m-d');
 
         $parameters = array(
         'UserID' => user,
-        'CreatedAfter' => '2021-04-20',
+        // 'CreatedAfter' => '2021-07-10',
+        'CreatedAfter' => date_create($fecha)->modify('-15 days')->format('Y-m-d'),
         'OrderId' => $order,
         'Version' => '1.0',
         'Action' => 'GetOrderItems',

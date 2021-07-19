@@ -40,7 +40,12 @@ class Pedido{
         ";
         $stmt = sqlsrv_prepare( $cid_central, $sql );
 
-        sqlsrv_execute($stmt);
+        
+        try {
+            sqlsrv_execute($stmt);
+        } catch (Exception $e) {
+            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+        }
     }
 
 
@@ -54,7 +59,11 @@ class Pedido{
         ";
         $stmt = sqlsrv_prepare( $cid_central, $sql );
 
-        sqlsrv_execute($stmt);
+        try {
+            sqlsrv_execute($stmt);
+        } catch (Exception $e) {
+            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+        }
     }
 
 
@@ -68,7 +77,11 @@ class Pedido{
         ";
         $stmt = sqlsrv_prepare( $cid_central, $sql );
 
-        sqlsrv_execute($stmt);
+        try {
+            sqlsrv_execute($stmt);
+        } catch (Exception $e) {
+            echo 'Excepción capturada: ',  $e->getMessage(), "\n";
+        }
     }
 
 

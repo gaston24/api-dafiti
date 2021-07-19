@@ -8,10 +8,6 @@ $orders = new Order();
 $list = $orders->getOrders();
 $row = 1;
 
-var_dump($list);
-die();
-
-
 $pedidos = new Pedido();
 $listPedidosExistentes = $pedidos->traerPedidos();
 
@@ -19,6 +15,7 @@ $pedidosExistentes = [];
 foreach ($listPedidosExistentes as $key => $value) {
     array_push($pedidosExistentes, $value['NRO_ORDEN_ECOMMERCE']);
 }
+
 
 use \DateTime as DT;
 
@@ -48,6 +45,7 @@ foreach ($list as $key => $value) {
                     echo $orderId.' '.$orderNumber.' '.date('Y-m-d H:i:s', $fechaCreate).' '.$cantArt.' '.$price.'<br>';
                 }elseif($estado == 1){
                     $pedidos->insertarEncabezado($orderId, $orderNumber, date('Y-m-d H:i:s', $fechaCreate), $cantArt, $price);
+                    // echo $orderId.' '.$orderNumber.' '.date('Y-m-d H:i:s', $fechaCreate).' '.$cantArt.' '.$price.'<br>';
                 }
 
                 
